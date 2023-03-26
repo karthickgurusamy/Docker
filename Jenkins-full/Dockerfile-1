@@ -1,0 +1,11 @@
+FROM centos:7
+MAINTAINER Karthick
+RUN yum install java-11-openjdk-devel -y
+RUN java -version
+RUN mkdir /opt/jenkins
+WORKDIR /opt/jenkins
+RUN curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | tee /etc/yum.repos.d/jenkins.repo
+RUN rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+RUN yum install jenkins -y
+CMD ["/usr/local/bin/jenkins.sh", "start"]
+EXPOSE 8080
